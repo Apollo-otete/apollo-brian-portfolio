@@ -1,6 +1,6 @@
 # Apollo Brian — Software Engineering Portfolio
 
-A responsive React and Vite portfolio for Apollo Brian, founder of Solarrick. The interface uses Solarrick's navy, electric-blue, and cyan palette, with Naoja Electrical & Electronics presented as the top featured project. Content is kept in `src/content.js`; the supplied CV PDF remains the downloadable source document in the project root.
+A responsive React and Vite portfolio for Apollo Brian, founder of [Solarrick](https://company-website-6yrw.onrender.com/). The interface uses Solarrick's navy, electric-blue, and cyan palette, with Naoja Electrical & Electronics presented as the top featured project. Content is kept in `src/content.js`; the supplied CV PDF remains the downloadable source document in the project root.
 
 ## Local development
 
@@ -28,7 +28,7 @@ The `vercel.json` file configures security headers for production hosting on Ver
 - Update confirmed profile links and skills in `src/content.js`.
 - Update each project case study there; keep planned, learning, and live work clearly distinguished.
 - Add published articles to the `articles` collection in `src/content.js`. Each entry supports an id, title, publication date, category, reading time, summary, optional cover image and alt text, paragraph/code content blocks, and related article ids.
-- Replace the supplied CV PDF with an updated document when needed, keeping its filename or updating the import in `src/App.jsx`.
+- Replace `Apollo Brian - Professional CV.pdf` when the CV is updated; the portfolio imports this file in `src/App.jsx`. The original supplied CV is kept separately.
 - Add published articles only when article content and publication details are available; the current writing section intentionally shows searchable learning topics instead.
 
 ## Contact form and privacy

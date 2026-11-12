@@ -1,11 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import cvUrl from '../Apollo Brian - Curriculum Vitae.pdf?url';
+import cvUrl from '../Apollo Brian - Professional CV.pdf?url';
 import {
   articles,
   backendFlow,
   devSecOpsFlow,
   education,
-  engineeringPrinciples,
   experienceEntries,
   learningTracks,
   navigation,
@@ -14,7 +13,6 @@ import {
   projectFilters,
   projects,
   skillGroups,
-  writingTopics,
 } from './content.js';
 
 const defaultDescription =
@@ -188,14 +186,13 @@ function App() {
     || Boolean((projectId && !project) || (articleId && !article) || (projectId && articleId));
   const [darkMode, setDarkMode] = useState(() => {
     try {
-      return localStorage.getItem('portfolio-theme') !== 'light';
+      return localStorage.getItem('portfolio-theme-v2') === 'dark';
     } catch {
-      return true;
+      return false;
     }
   });
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All');
-  const [topicSearch, setTopicSearch] = useState('');
   const [contactFeedback, setContactFeedback] = useState('');
 
   const filteredProjects = useMemo(
@@ -204,25 +201,14 @@ function App() {
       : projects.filter(({ filters }) => filters.includes(activeFilter)),
     [activeFilter],
   );
-  const filteredTopics = useMemo(
-    () => writingTopics.filter((topic) => topic.toLowerCase().includes(topicSearch.trim().toLowerCase())),
-    [topicSearch],
-  );
-  const filteredArticles = useMemo(() => {
-    const query = topicSearch.trim().toLowerCase();
-    return articles.filter((item) => [
-      item.title,
-      item.category,
-      item.summary,
-      ...item.content.map(({ content }) => content),
-    ].join(' ').toLowerCase().includes(query));
-  }, [topicSearch]);
   const homeHref = project || article || isNotFound ? '/' : '';
 
   useEffect(() => {
     document.body.classList.toggle('dark', darkMode);
+    document.querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', darkMode ? '#071d55' : '#ffffff');
     try {
-      localStorage.setItem('portfolio-theme', darkMode ? 'dark' : 'light');
+      localStorage.setItem('portfolio-theme-v2', darkMode ? 'dark' : 'light');
     } catch {
       // The selected theme remains usable for the current page.
     }
@@ -276,7 +262,14 @@ function App() {
   }
 
   if (isNotFound) {
-    return <><a className="skip-link" href="#main-content">Skip to content</a><NotFound /><SiteFooter /></>;
+    return (
+      <>
+        <a className="skip-link" href="#main-content">Skip to content</a>
+        <SiteHeader darkMode={darkMode} setDarkMode={setDarkMode} menuOpen={menuOpen} setMenuOpen={setMenuOpen} homeHref="/" />
+        <NotFound />
+        <SiteFooter />
+      </>
+    );
   }
 
   if (project || article) {
@@ -297,22 +290,16 @@ function App() {
       <main id="main-content">
         <section className="hero page-width" id="home">
           <div className="hero-copy">
-            <p className="eyebrow">Founder, Solarrick · Software engineering</p>
+            <p className="eyebrow">Software Engineer · Solarrick Company</p>
             <h1>{profile.name}</h1>
-            <p className="hero-role">Founder of Solarrick · Full-Stack Developer</p>
             <p className="hero-description">
-              I’m the founder of Solarrick and an Information Technology student building
-              practical software, with a focus on backend systems, databases, and security-conscious engineering.
+              I build practical software, with a focus on backend systems, databases, and
+              security-conscious engineering.
             </p>
             <div className="hero-actions">
               <a className="button button-primary" href="#projects">View My Projects</a>
               <a className="button button-outline" href={cvUrl} download="Apollo-Brian-CV.pdf">Download CV</a>
               <a className="button button-quiet" href="#contact">Contact Me</a>
-            </div>
-            <div className="social-links" aria-label="Professional profiles">
-              <a href={profile.github} {...externalLinkProps()}>GitHub ↗</a>
-              <a href={profile.linkedin} {...externalLinkProps()}>LinkedIn ↗</a>
-              <a href={`mailto:${profile.email}`}>Email ↗</a>
             </div>
           </div>
           <div className="portrait-wrap">
@@ -324,7 +311,7 @@ function App() {
               width="320"
               height="320"
             />
-            <span className="portrait-tag"><span aria-hidden="true" /> SOFTWARE ENGINEERING</span>
+            <p className="portrait-caption">Software Engineer &amp; Founder of Solarrick</p>
           </div>
           <a className="scroll-cue" href="#about"><span aria-hidden="true" />Scroll to explore</a>
         </section>
@@ -616,50 +603,9 @@ Content-Type: application/json
           </div>
         </section>
 
-        <section className="content-section page-width" id="writing">
-          <SectionHeading
-            number="10"
-            title="Technical writing & knowledge sharing"
-            intro="I haven’t provided published article links yet. Search the technical topics I’m learning and plan to write about; no draft topics are represented as published posts."
-          />
-          <label className="topic-search">
-            <span>Search published articles and learning topics</span>
-            <input
-              type="search"
-              value={topicSearch}
-              onChange={(event) => setTopicSearch(event.target.value)}
-              placeholder="Try “database” or “security”"
-            />
-          </label>
-          {filteredArticles.length > 0 && (
-            <div className="article-list">
-              {filteredArticles.map((item) => (
-                <article className="article-card" key={item.id}>
-                  {item.coverImage && <img src={item.coverImage} alt={item.coverAlt || ''} loading="lazy" />}
-                  <p className="project-type">{item.category}</p>
-                  <h3><a href={`/?article=${encodeURIComponent(item.id)}`}>{item.title}</a></h3>
-                  <p>{item.summary}</p>
-                  <p className="article-meta"><time dateTime={item.publishedAt}>{item.publishedAt}</time> · {item.readingTime} min read</p>
-                </article>
-              ))}
-            </div>
-          )}
-          {articles.length === 0 && (
-            <p className="empty-state" role="status">No published articles yet.</p>
-          )}
-          {filteredTopics.length > 0 ? (
-            <ul className="topic-list" aria-live="polite">
-              {filteredTopics.map((topic) => <li key={topic}>{topic}<span>Learning topic</span></li>)}
-            </ul>
-          ) : (
-            topicSearch && <p className="empty-state" role="status">No learning topics match “{topicSearch}”.</p>
-          )}
-          <p className="annotation">Published articles, publication dates, reading times, and article content will appear here when available.</p>
-        </section>
-
         <section className="content-section page-width resume-section" id="resume">
           <div className="resume-copy">
-            <p className="section-kicker">11 / CV &amp; resume</p>
+            <p className="section-kicker">10 / CV &amp; resume</p>
             <h2>A concise overview of my current path.</h2>
             <p className="section-intro">{professionalSummary}</p>
             <a className="button button-primary" href={cvUrl} download="Apollo-Brian-CV.pdf">
@@ -669,13 +615,18 @@ Content-Type: application/json
           <div className="resume-preview">
             <p className="project-type">CV PREVIEW</p>
             <h3>{profile.name}</h3>
-            <p>Founder, Solarrick · Software Engineer · Full-Stack Developer</p>
+            <p>Software Engineer · Founder, Solarrick</p>
             <dl>
-              <div><dt>Company</dt><dd>Founder of Solarrick</dd></div>
+              <div>
+                <dt>Company</dt>
+                <dd>
+                  Founder of <a className="text-link inline-link" href={profile.companyUrl} {...externalLinkProps()}>Solarrick ↗</a>
+                </dd>
+              </div>
               <div><dt>Education</dt><dd>{education.qualification} · Third-year student</dd></div>
               <div><dt>Focus</dt><dd>Backend engineering, full-stack development, databases, and application security</dd></div>
-              <div><dt>Technology</dt><dd>React, TypeScript, Node.js, Express.js, Python, Java, PostgreSQL, MySQL, SQL Server, MongoDB, Docker</dd></div>
-              <div><dt>Selected work</dt><dd>Naoja Electrical &amp; Electronics · FARDAgriTRUST · Backend practice application</dd></div>
+              <div><dt>Technology</dt><dd>React, Vite, TypeScript, Node.js, Express.js, Python, Java, Go / Gin exposure, PostgreSQL, MySQL, SQL Server, MongoDB, Docker</dd></div>
+              <div><dt>Selected work</dt><dd>Naoja Electrical &amp; Electronics · FARDAgriTRUST · School E-Voting · Backend practice application</dd></div>
               <div><dt>Experience</dt><dd>Project-based development and learning work; no unverified employment history is listed</dd></div>
               <div><dt>Development</dt><dd>Decode 4.0 Café Series: Made of Kenya Edition · Certificate of participation</dd></div>
             </dl>
@@ -686,25 +637,9 @@ Content-Type: application/json
           </div>
         </section>
 
-        <section className="content-section page-width principles-section" id="principles">
-          <SectionHeading
-            number="12"
-            title="Engineering principles"
-            intro="The practices I want to carry consistently from coursework into production engineering."
-          />
-          <div className="principle-grid">
-            {engineeringPrinciples.map(([title, description]) => (
-              <article className="principle-item" key={title}>
-                <span aria-hidden="true">/</span>
-                <div><h3>{title}</h3><p>{description}</p></div>
-              </article>
-            ))}
-          </div>
-        </section>
-
         <section className="contact-section page-width" id="contact">
           <div>
-            <p className="section-kicker">13 / Contact</p>
+            <p className="section-kicker">11 / Contact</p>
             <h2>Let’s talk about useful software.</h2>
             <p className="section-copy">
               Reach out about a project, collaboration, or engineering opportunity.
@@ -797,6 +732,7 @@ function SiteFooter() {
       <a className="brand" href="/#home">&lt;solarrick /&gt;</a>
       <p>© {new Date().getFullYear()} {profile.name}</p>
       <div className="footer-links">
+        <a href={profile.companyUrl} {...externalLinkProps()}>Solarrick</a>
         <a href={profile.github} {...externalLinkProps()}>GitHub</a>
         <a href={profile.linkedin} {...externalLinkProps()}>LinkedIn</a>
         <a href={`mailto:${profile.email}`}>Email</a>

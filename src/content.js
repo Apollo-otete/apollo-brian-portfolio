@@ -1,6 +1,7 @@
 export const profile = {
   name: 'Apollo Brian',
   company: 'Solarrick',
+  companyUrl: 'https://company-website-6yrw.onrender.com/',
   title: 'Founder of Solarrick · Software Engineer · Full-Stack Developer',
   focus: 'Backend engineering, databases, and security-conscious systems',
   email: 'brianapollo63@gmail.com',
@@ -15,14 +16,7 @@ export const navigation = [
   ['About', 'about'],
   ['Skills', 'skills'],
   ['Projects', 'projects'],
-  ['Backend', 'backend'],
-  ['Databases', 'databases'],
-  ['Security', 'security'],
-  ['DevOps', 'devops'],
   ['Experience', 'experience'],
-  ['Education', 'education'],
-  ['Writing', 'writing'],
-  ['CV', 'resume'],
   ['Contact', 'contact'],
 ];
 
@@ -66,10 +60,6 @@ export const learningTracks = [
   {
     title: 'Operations & infrastructure',
     topics: ['Linux administration', 'Nginx', 'Cloud fundamentals', 'Deployment', 'Monitoring and logging', 'Backup and recovery'],
-  },
-  {
-    title: 'Artificial intelligence & machine learning',
-    topics: ['Python for AI/ML', 'Machine-learning fundamentals', 'Data processing', 'AI integration', 'Model deployment'],
   },
 ];
 
@@ -210,15 +200,6 @@ export const projectFilters = [
   'DevOps & infrastructure',
 ];
 
-export const engineeringPrinciples = [
-  ['Security by design', 'Consider permissions, input handling, and data exposure early.'],
-  ['Data integrity', 'Use clear relationships and consistency rules to protect important records.'],
-  ['Maintainability', 'Prefer understandable code, modular boundaries, and useful documentation.'],
-  ['Reliability', 'Treat errors, testing, and operational needs as part of the engineering work.'],
-  ['Automation', 'Use repeatable workflows to reduce manual mistakes as systems grow.'],
-  ['Continuous learning', 'Improve through study, feedback, and practical project work.'],
-];
-
 export const experienceEntries = [
   {
     status: 'Personal project · Live',
@@ -264,16 +245,6 @@ export const devSecOpsFlow = [
   ['Operate', 'Monitor, respond, and improve'],
 ];
 
-export const writingTopics = [
-  'Backend engineering and REST APIs',
-  'Database management, data modeling, and integrity',
-  'Authentication, authorization, and RBAC',
-  'Application security and OWASP principles',
-  'Docker, CI/CD, and DevSecOps fundamentals',
-  'Linux, cloud, and deployment learning notes',
-  'Artificial intelligence and machine-learning fundamentals',
-];
-
 export const articles = [];
 
 export const education = {
@@ -296,4 +267,4 @@ export const education = {
 };
 
 export const professionalSummary =
-  'Information Technology student with a practical interest in building reliable, maintainable, and secure software. Focused on backend and full-stack development, databases, and growing capability in infrastructure and DevSecOps.';
+  'Software engineer and founder of Solarrick with hands-on project experience across web development, backend systems, and databases. Builds practical software and develops engineering capability through a live retail storefront, development projects, and focused technical study. Interested in maintainable architecture, secure application design, and dependable data systems.';

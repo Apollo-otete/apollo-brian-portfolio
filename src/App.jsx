@@ -18,7 +18,7 @@ import {
 } from './content.js';
 
 const defaultDescription =
-  'Apollo Brian is an Information Technology student and software developer focused on backend engineering, databases, and secure software.';
+  'Apollo Brian, founder of Solarrick, is an Information Technology student and software developer focused on backend engineering, databases, and secure software.';
 
 function externalLinkProps() {
   return { target: '_blank', rel: 'noreferrer' };
@@ -36,19 +36,33 @@ function SectionHeading({ number, title, intro }) {
 
 function ProjectCard({ project }) {
   return (
-    <article className="portfolio-project">
+    <article className={project.featured ? 'portfolio-project featured-project' : 'portfolio-project'}>
       <div className="project-card-heading">
-        <p className="project-type">{project.category}</p>
+        <p className="project-type">
+          {project.featured && <span className="featured-label">Top project · </span>}
+          {project.category}
+        </p>
         <span className="project-status"><span aria-hidden="true" />{project.status}</span>
       </div>
-      <h3>{project.title}</h3>
-      <p className="project-summary">{project.summary}</p>
-      <ul className="project-tags" aria-label={`${project.title} technologies and topics`}>
-        {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
-      </ul>
-      <a className="text-link" href={`/?project=${encodeURIComponent(project.id)}`}>
-        Read the case study <span aria-hidden="true">→</span>
-      </a>
+      <div className="featured-project-content">
+        <div>
+          <h3>{project.title}</h3>
+          <p className="project-summary">{project.summary}</p>
+          <ul className="project-tags" aria-label={`${project.title} technologies and topics`}>
+            {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
+          </ul>
+        </div>
+        <div className="featured-project-actions">
+          <a className="text-link" href={`/?project=${encodeURIComponent(project.id)}`}>
+            Read the case study <span aria-hidden="true">→</span>
+          </a>
+          {project.featured && project.links.map(({ href, label }) => (
+            <a className="project-action-link" href={href} key={href} {...externalLinkProps()}>
+              {label} ↗
+            </a>
+          ))}
+        </div>
+      </div>
     </article>
   );
 }
@@ -216,10 +230,10 @@ function App() {
 
   useEffect(() => {
     const pageTitle = project || article
-      ? `${project?.title || article?.title} | ${profile.name}`
+      ? `${project?.title || article?.title} | ${profile.company}`
       : isNotFound
-        ? `Page not found | ${profile.name}`
-        : `${profile.name} | Software Engineer`;
+        ? `Page not found | ${profile.company}`
+        : `${profile.name} | Founder of ${profile.company}`;
     const description = project?.summary || article?.summary || defaultDescription;
     document.title = pageTitle;
     document.querySelector('meta[name="description"]')?.setAttribute('content', description);
@@ -283,12 +297,12 @@ function App() {
       <main id="main-content">
         <section className="hero page-width" id="home">
           <div className="hero-copy">
-            <p className="eyebrow">Software engineering · Information Technology</p>
+            <p className="eyebrow">Founder, Solarrick · Software engineering</p>
             <h1>{profile.name}</h1>
-            <p className="hero-role">Full-Stack Developer · Backend &amp; Database Focus</p>
+            <p className="hero-role">Founder of Solarrick · Full-Stack Developer</p>
             <p className="hero-description">
-              I’m an Information Technology student building practical software and
-              growing my experience across backend systems, databases, and security-conscious engineering.
+              I’m the founder of Solarrick and an Information Technology student building
+              practical software, with a focus on backend systems, databases, and security-conscious engineering.
             </p>
             <div className="hero-actions">
               <a className="button button-primary" href="#projects">View My Projects</a>
@@ -323,10 +337,10 @@ function App() {
           <div className="about-copy">
             <p>{profile.summary}</p>
             <p>
-              I’m studying for a Bachelor of Information Technology at Masinde Muliro
+              As founder of Solarrick, I’m building a technology-focused company alongside
+              my studies for a Bachelor of Information Technology at Masinde Muliro
               University of Science and Technology. My project work and learning are
-              centered on understanding how interfaces, APIs, databases, and operational
-              concerns fit together.
+              centered on understanding how interfaces, APIs, databases, and operations fit together.
             </p>
             <p>
               I prefer to describe work precisely: coursework, learning projects, active
@@ -374,7 +388,7 @@ function App() {
           <SectionHeading
             number="03"
             title="Selected projects"
-            intro="Case studies distinguish live work from development and learning projects. Details are deliberately limited to what the CV, public repositories, and live site support."
+            intro="Naoja Electrical & Electronics is my top project and the featured live case study. Other development and learning projects follow, with claims limited to what the CV, public repositories, and live site support."
           />
           <div className="filter-list" role="group" aria-label="Filter projects by category">
             {projectFilters.map((filter) => (
@@ -655,12 +669,13 @@ Content-Type: application/json
           <div className="resume-preview">
             <p className="project-type">CV PREVIEW</p>
             <h3>{profile.name}</h3>
-            <p>Software Engineer · Backend Developer · Full-Stack Developer</p>
+            <p>Founder, Solarrick · Software Engineer · Full-Stack Developer</p>
             <dl>
+              <div><dt>Company</dt><dd>Founder of Solarrick</dd></div>
               <div><dt>Education</dt><dd>{education.qualification} · Third-year student</dd></div>
               <div><dt>Focus</dt><dd>Backend engineering, full-stack development, databases, and application security</dd></div>
               <div><dt>Technology</dt><dd>React, TypeScript, Node.js, Express.js, Python, Java, PostgreSQL, MySQL, SQL Server, MongoDB, Docker</dd></div>
-              <div><dt>Selected work</dt><dd>FARDAgriTRUST · Naoja Electrical &amp; Electronics · Backend practice application</dd></div>
+              <div><dt>Selected work</dt><dd>Naoja Electrical &amp; Electronics · FARDAgriTRUST · Backend practice application</dd></div>
               <div><dt>Experience</dt><dd>Project-based development and learning work; no unverified employment history is listed</dd></div>
               <div><dt>Development</dt><dd>Decode 4.0 Café Series: Made of Kenya Edition · Certificate of participation</dd></div>
             </dl>
@@ -737,7 +752,7 @@ function SiteHeader({ darkMode, setDarkMode, menuOpen, setMenuOpen, homeHref }) 
   const logoHref = homeHref ? `${homeHref}#home` : '#home';
   return (
     <header className="site-header">
-      <a className="brand" href={logoHref} aria-label={`${profile.name}, home`}>&lt;apollo.dev /&gt;</a>
+      <a className="brand" href={logoHref} aria-label={`${profile.company}, home`}>&lt;solarrick /&gt;</a>
       <button
         className="menu-toggle"
         type="button"
@@ -779,7 +794,7 @@ function SiteHeader({ darkMode, setDarkMode, menuOpen, setMenuOpen, homeHref }) 
 function SiteFooter() {
   return (
     <footer className="site-footer page-width">
-      <a className="brand" href="/#home">&lt;apollo.dev /&gt;</a>
+      <a className="brand" href="/#home">&lt;solarrick /&gt;</a>
       <p>© {new Date().getFullYear()} {profile.name}</p>
       <div className="footer-links">
         <a href={profile.github} {...externalLinkProps()}>GitHub</a>

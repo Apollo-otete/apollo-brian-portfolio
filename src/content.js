@@ -1,12 +1,13 @@
 export const profile = {
   name: 'Apollo Brian',
-  title: 'Software Engineer · Full-Stack Developer',
+  company: 'Solarrick',
+  title: 'Founder of Solarrick · Software Engineer · Full-Stack Developer',
   focus: 'Backend engineering, databases, and security-conscious systems',
   email: 'brianapollo63@gmail.com',
   github: 'https://github.com/Apollo-otete',
   linkedin: 'https://www.linkedin.com/in/apollo-brian-53a5bb368/',
   summary:
-    'Information Technology student building practical software and developing a stronger foundation in backend engineering, full-stack development, databases, and secure application design.',
+    'Founder of Solarrick and Information Technology student building practical software while developing a stronger foundation in backend engineering, full-stack development, databases, and secure application design.',
 };
 
 export const navigation = [
@@ -74,6 +75,39 @@ export const learningTracks = [
 
 export const projects = [
   {
+    id: 'naoja-retail',
+    title: 'Naoja Electrical & Electronics',
+    category: 'Retail web application · Live',
+    status: 'Live deployment',
+    featured: true,
+    summary:
+      'A live storefront for an electronics and solar business serving Kakamega. The public site presents products, delivery information, and customer ordering options.',
+    filters: ['Web applications', 'Full-stack applications', 'Backend & APIs', 'Database engineering'],
+    tags: ['React', 'Vite', 'Tailwind CSS', 'Go / Gin', 'PostgreSQL'],
+    overview:
+      'An e-commerce retail shop with a public product catalogue and customer-facing shopping experience.',
+    problem:
+      'The project gives a local electronics and solar retailer an online storefront for presenting its products and reaching customers.',
+    contribution:
+      'A project in my public GitHub account. The repository README documents the application structure and listed features.',
+    architecture:
+      'The public repository describes a React and Vite frontend with a Go / Gin backend.',
+    database:
+      'PostgreSQL is listed in the repository documentation. A schema diagram is not included in this portfolio.',
+    security:
+      'Security implementation details are not described here; no specific controls or audit results are claimed.',
+    challenges:
+      'The repository documents a catalogue, cart, checkout, order tracking, and administration features. This portfolio does not claim independent testing of each workflow.',
+    solutions:
+      'The live site and repository provide the project entry points for visitors who want to inspect the storefront and its implementation.',
+    technologies: ['React', 'Vite', 'Tailwind CSS', 'Go / Gin', 'PostgreSQL'],
+    links: [
+      { label: 'Live storefront', href: 'https://naojaretailshop.vercel.app/' },
+      { label: 'GitHub repository', href: 'https://github.com/Apollo-otete/Naojaretailshop' },
+    ],
+    note: 'Technology and feature details are drawn from the public repository README; live functionality may change over time.',
+  },
+  {
     id: 'fardagritrust',
     title: 'FARDAgriTRUST',
     category: 'Agricultural technology · Development project',
@@ -103,38 +137,6 @@ export const projects = [
       { label: 'GitHub profile', href: profile.github },
     ],
     note: 'Development status and planned work are based on the supplied CV. No public project repository or deployment was provided.',
-  },
-  {
-    id: 'naoja-retail',
-    title: 'Naoja Electrical & Electronics',
-    category: 'Retail web application · Live',
-    status: 'Live deployment',
-    summary:
-      'A live storefront for an electronics and solar business serving Kakamega. The public site presents products, delivery information, and customer ordering options.',
-    filters: ['Web applications', 'Full-stack applications', 'Backend & APIs', 'Database engineering'],
-    tags: ['React', 'Vite', 'Tailwind CSS', 'Go / Gin', 'PostgreSQL'],
-    overview:
-      'An e-commerce retail shop with a public product catalogue and customer-facing shopping experience.',
-    problem:
-      'The project gives a local electronics and solar retailer an online storefront for presenting its products and reaching customers.',
-    contribution:
-      'A project in my public GitHub account. The repository README documents the application structure and listed features.',
-    architecture:
-      'The public repository describes a React and Vite frontend with a Go / Gin backend.',
-    database:
-      'PostgreSQL is listed in the repository documentation. A schema diagram is not included in this portfolio.',
-    security:
-      'Security implementation details are not described here; no specific controls or audit results are claimed.',
-    challenges:
-      'The repository documents a catalogue, cart, checkout, order tracking, and administration features. This portfolio does not claim independent testing of each workflow.',
-    solutions:
-      'The live site and repository provide the project entry points for visitors who want to inspect the storefront and its implementation.',
-    technologies: ['React', 'Vite', 'Tailwind CSS', 'Go / Gin', 'PostgreSQL'],
-    links: [
-      { label: 'Live storefront', href: 'https://naojaretailshop.vercel.app/' },
-      { label: 'GitHub repository', href: 'https://github.com/Apollo-otete/Naojaretailshop' },
-    ],
-    note: 'Technology and feature details are drawn from the public repository README; live functionality may change over time.',
   },
   {
     id: 'backend-practice',
@@ -219,16 +221,16 @@ export const engineeringPrinciples = [
 
 export const experienceEntries = [
   {
-    status: 'Development project · In progress',
-    title: 'FARDAgriTRUST',
-    summary: 'Architecture, data relationships, and authorization requirements are in the planning and development stage.',
-    projectId: 'fardagritrust',
-  },
-  {
     status: 'Personal project · Live',
     title: 'Naoja Electrical & Electronics',
     summary: 'A live retail storefront with public source documentation linked in its case study.',
     projectId: 'naoja-retail',
+  },
+  {
+    status: 'Development project · In progress',
+    title: 'FARDAgriTRUST',
+    summary: 'Architecture, data relationships, and authorization requirements are in the planning and development stage.',
+    projectId: 'fardagritrust',
   },
   {
     status: 'Personal learning project',

@@ -1,6 +1,6 @@
 # Apollo Brian — Software Engineering Portfolio
 
-A responsive React and Vite portfolio. Content is kept in `src/content.js`; the supplied CV PDF remains the downloadable source document in the project root.
+A responsive React and Vite portfolio for Apollo Brian, founder of Solarrick. The interface uses Solarrick's navy, electric-blue, and cyan palette, with Naoja Electrical & Electronics presented as the top featured project. Content is kept in `src/content.js`; the supplied CV PDF remains the downloadable source document in the project root.
 
 ## Local development
 
